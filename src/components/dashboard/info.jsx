@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import InfoCard from "./inforcard";
 
 async function searchDataClien(codigoCliente) {
-  console.log("Buscando datos para el cliente:", codigoCliente);
   const API_URL =
     "https://asesores.segurospiramide.com/asg-api/dbo/customers/get_customer_code"; // Endpoint para obtener detalles
 
@@ -18,13 +17,11 @@ async function searchDataClien(codigoCliente) {
     });
 
     if (!resp.ok) {
-      console.error("Error al buscar datos del cliente:", resp.status);
       return null;
     }
 
     return await resp.json();
   } catch (error) {
-    console.error("Fallo de conexión en searchDataClien:", error);
     return null;
   }
 }

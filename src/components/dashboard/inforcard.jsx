@@ -1,8 +1,5 @@
 export default function InfoCard({ client }) {
   const [datos] = client.p_cursor;
-
-  console.log(datos);
-
   const { NOMTER1: nombre, APETER1: apellido } = datos;
 
   return (

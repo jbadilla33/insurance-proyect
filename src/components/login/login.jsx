@@ -2,6 +2,7 @@ import { useState } from "react";
 import SearchClient from "./search-client";
 import InformationClient from "./information-client";
 import { useNavigate } from "react-router-dom";
+import styles from "./login.module.css";
 
 export default function Login() {
   const [user, setUser] = useState("sandraguzman");
@@ -23,8 +24,6 @@ export default function Login() {
     });
 
     if (cliente) {
-      console.log(cliente);
-
       const dataUser = cliente.user;
 
       const clienteAutenticado = {
@@ -32,7 +31,6 @@ export default function Login() {
         P_PORTAL_USER_ID: dataUser.P_PORTAL_USER_ID,
         // Agrega aquí los demás campos que necesites
       };
-      console.log("clienteAutenticado" + clienteAutenticado);
       localStorage.setItem(
         "clienteAutenticado",
         JSON.stringify(clienteAutenticado)
@@ -44,10 +42,12 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Bienvenido de nuevo</h1>
-      <h3>Inicia sesión para gestionar tu portafolio</h3>
-      <div>
+    <div className={styles.contenedorPrincipal}>
+      <h1 className={styles.titulo}>Bienvenido de Nuevo</h1>
+      <h3 className={styles.titulo2}>
+        Inicia sesión para gestionar tu portafolio
+      </h3>
+      <div className={styles.contenedorForm}>
         <form action="">
           <input
             type="text"

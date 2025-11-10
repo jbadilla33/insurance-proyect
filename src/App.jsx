@@ -14,17 +14,3 @@ function App() {
 }
 
 export default App;
-/*import { useState } from "react";
-import Login from "./components/login/login";
-import Dashboard from "./components/dashboard/info";
-function App() {
-  return (
-    <>
-      <Login />
-      <Dashboard />
-    </>
-  );
-}
-
-export default App;
-*/
