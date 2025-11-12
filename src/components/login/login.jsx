@@ -1,20 +1,18 @@
 import { useState } from "react";
 import SearchClient from "./search-client";
-import InformationClient from "./information-client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./login.module.css";
 
 export default function Login() {
-  const [user, setUser] = useState("sandraguzman");
+  const [user, setUser] = useState("sguzman");
   const [password, setPassword] = useState("Aranza103.");
-  const [client, setClient] = useState(null);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Lógica de autenticación aquí
     if (!user || !password) {
-      alert("Faltan datos de inicio de sesión");
+      setError("Faltan datos de inicio de sesión");
       return;
     }
 
@@ -24,12 +22,11 @@ export default function Login() {
     });
 
     if (cliente) {
-      const dataUser = cliente.user;
+      const dataUser = cliente?.user;
 
       const clienteAutenticado = {
-        p_client_code: "00000029584359",
+        p_client_code: dataUser.p_client_code,
         P_PORTAL_USER_ID: dataUser.P_PORTAL_USER_ID,
-        // Agrega aquí los demás campos que necesites
       };
       localStorage.setItem(
         "clienteAutenticado",
@@ -37,18 +34,15 @@ export default function Login() {
       );
       navigate("/Dashboard");
     } else {
-      setClient("");
+      setError("Usuario o contraseña incorrectos");
     }
   };
-
   return (
     <div className={styles.contenedorPrincipal}>
-      <h1 className={styles.titulo}>Bienvenido de Nuevo</h1>
-      <h3 className={styles.titulo2}>
-        Inicia sesión para gestionar tu portafolio
-      </h3>
+      <h1 className={styles.titulo}>Acceda a su panel de control</h1>
+      <h3 className={styles.titulo2}>Plataforma para corredores de seguros</h3>
       <div className={styles.contenedorForm}>
-        <form action="">
+        <form onSubmit={handleLogin}>
           <input
             type="text"
             placeholder="Usuario"
@@ -63,12 +57,13 @@ export default function Login() {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit" onClick={handleLogin}>
-            Iniciar sesión
-          </button>
+          <Link className={styles["link-sin-raya"]} to="/Registro">
+            Registrarse
+          </Link>
+          <button type="submit">Iniciar sesión</button>
         </form>
       </div>
-      {client === "" && <p>Usuario o contraseña incorrectos</p>}
+      {error && <p>{error}</p>}
     </div>
   );
 }

@@ -6,44 +6,45 @@
   --color-fondo-claro: #f7f7f7;
   --color-borde-normal: #ccc;
   --color-borde-foco: #27ae60; /* Verde más oscuro para el foco */
+  --color-fondo-formulario: #ffffff;
 }
 
 /* --- 1. LAYOUT PRINCIPAL Y TEXTO --- */
 .contenedorPrincipal {
-  margin: 0; /* Centrar verticalmente en la página */
+  margin: 0;
   padding: 50px 10px;
   height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center; /* Centra horizontalmente todo el contenido */
   background-color: white; /* Fondo blanco */
+  font-family: "Times New Roman", Times, serif;
+  justify-content: center;
 }
 
 .titulo {
   margin-bottom: 5px;
   font-size: 2.5rem; /* Ajustado para mejor equilibrio */
-  font-family: Arial, sans-serif;
   font-weight: bold;
-  color: var(--color-texto-principal);
+  color: var(--color-borde-foco);
 }
 
 .titulo2 {
   margin: 5px 0 30px 0; /* Más espacio debajo */
   font-size: 1.2rem; /* Ajustado */
-  font-family: Arial, sans-serif;
   color: #777;
 }
 
 /* --- 2. CONTENEDOR DEL FORMULARIO --- */
 .contenedorForm {
-  background-color: var(--color-fondo-claro); /* Fondo gris claro suave */
+  background-color: var(--color-fondo-formulario); /* Fondo gris claro suave */
   border-radius: 8px; /* Bordes redondeados */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
 
   /* Ajuste de dimensiones y espaciado */
   height: auto;
-  padding: 20px;
-  width: 300px; /* Ancho fijo para el formulario (ajustado) */
+  padding: 30px;
+  width: 500px; /* Ancho fijo para el formulario (ajustado) */
 
   display: flex;
   flex-direction: column;
@@ -58,9 +59,8 @@
 .contenedorForm input {
   width: 100%;
   padding: 10px;
+  margin-bottom: 10px;
   box-sizing: border-box;
-
-  /* Eliminar bordes por defecto y usar solo el borde inferior */
   border: none;
   border-bottom: 2px solid var(--color-borde-normal); /* Borde inferior sutil */
   background-color: white; /* Fondo blanco para el campo */
@@ -101,6 +101,20 @@
 
 .contenedorForm button:hover {
   background-color: #1e8449; /* Verde más oscuro al pasar el mouse */
+}
+
+.link-sin-raya {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+  font-size: 1.2rem;
+  margin: 5px;
+}
+
+.link-sin-raya:hover {
+  color: var(--color-principal);
+  text-decoration: none;
+  font-family: "Times New Roman", Times, serif;
 }
 
 /*.contenedorPrincipal {
