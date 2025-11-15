@@ -1,396 +1,166 @@
-/* --- Variables de Estilo --- */
-:root {
-  --color-oceanica-green: #39c07e;
-  --color-texto-principal: #333;
-  --color-texto-gris: #6c757d;
-  --color-fondo-claro: #f8f9fa;
-  --color-borde-claro: #e9ecef;
-  --color-timeline-line: #e0e0e0;
-}
+/* Paleta de Colores:
+   - Primario (Azul): #007bff (o un azul más profundo como #0056b3)
+   - Fondo: #f0f4f8 (Gris azulado muy suave)
+   - Contenedor: #ffffff (Blanco puro)
+   - Énfasis/Error: #dc3545 (Rojo)
+*/
 
-/* --- Layout Principal --- */
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  padding: 20px 0;
-  min-height: 100vh;
-}
-
-/* --- Header y Título --- */
-.headerStatic {
-  width: 90%;
-  max-width: 650px;
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--color-borde-claro);
-}
-
-/* --- Línea de Tiempo (Timeline) --- */
-.timelineContainer {
-  width: 90%;
-  max-width: 650px;
-  position: relative;
-  padding-left: 30px;
-}
-
-/* La línea vertical */
-.timelineConnector {
-  position: absolute;
-  left: 10px;
-  top: 20px;
-  width: 2px;
-  background-color: var(--color-timeline-line);
-  z-index: 0;
-}
-
-.timelineItem {
-  display: flex;
-  align-items: center;
-  margin-bottom: 45px; /* Espacio vertical entre pasos */
-  position: relative;
-}
-
-.stepIndicator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: white;
-  margin-left: -30px;
-  flex-shrink: 0;
-  z-index: 1;
-  background-color: var(--color-timeline-line); /* Inactivo por defecto */
-}
-
-/* Estados del Indicador */
-.stepIndicator.active {
-  background-color: var(--color-oceanica-green);
-}
-.stepIndicator.completed {
-  background-color: var(--color-oceanica-green);
-  font-size: 1rem;
-}
-
-/* Títulos de los pasos */
-.stepTitle {
-  color: var(--color-texto-gris);
-  font-weight: 400;
-  margin: 0;
-  margin-left: 10px;
-  font-size: 1rem;
-}
-.stepTitle.titleActive {
-  color: var(--color-texto-principal);
-  font-weight: 600;
-}
-.stepTitle.titleCompleted {
-  color: var(--color-texto-principal);
-  font-weight: 600;
-}
-
-/* --- Área de Contenido del Paso Activo --- */
-.contentArea {
-  margin-top: -30px; /* Sube el contenido bajo el paso activo */
-  margin-left: 30px; /* Alineación horizontal con el borde del contenedor */
-  width: 100%;
-}
-
-.formCardWrapper {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--color-borde-claro);
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Inputs como en image_fbbced.png (solo borde inferior) */
-.inputField {
-  width: 100%;
-  padding: 12px 0;
-  border: none;
-  border-bottom: 1px solid var(--color-timeline-line);
-  font-size: 1rem;
-  background: transparent;
-}
-.inputField:focus {
-  border-bottom-color: var(--color-oceanica-green);
-  outline: none;
-}
-
-/* --- Botones de Navegación --- */
-.navigationButtons {
-  width: 90%;
-  max-width: 650px;
-  display: flex;
-  justify-content: flex-end; /* Botones a la derecha */
-  align-items: center;
-  margin-top: 30px;
-  gap: 20px;
-}
-
-.prevButton {
-  background: none;
-  border: none;
-  color: var(--color-texto-gris);
-  font-size: 1rem;
-  cursor: pointer;
-  text-decoration: none; /* Como 'Ver paso anterior' */
-}
-
-.nextButton,
-.finalButton {
-  background-color: var(--color-oceanica-green);
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* --- Estilo para la Revisión (image_fbbd28.png) --- */
-.reviewContainer {
-  /* Mismo estilo de tarjeta */
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--color-borde-claro);
-  width: 100%;
-  box-sizing: border-box;
-}
-.reviewTitle {
-  color: var(--color-oceanica-green);
-  font-size: 1.4rem;
-}
-.reviewSubtitle {
-  color: var(--color-texto-gris);
-  font-size: 0.9rem;
-  margin-bottom: 20px;
-}
-
-.reviewStepItem {
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--color-borde-claro);
-  border-radius: 4px;
-  padding: 15px;
-  margin-bottom: 10px;
-}
-.reviewStepIcon {
-  margin-right: 15px;
-  font-size: 1.2rem;
-  color: var(--color-oceanica-green);
-}
-.reviewStepLabel {
-  flex-grow: 1;
-  font-weight: 500;
-}
-.editButton {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-/*
-:root {
-  --color-principal: #007bff; 
-  --color-texto-oscuro: #333;
-  --color-texto-gris: #6c757d;
-  --color-fondo-claro: #f8f9fa;
-  --color-borde-gris: #dee2e6;
-  --color-borde-claro: #e9ecef;
-  --color-borde-activo: #20c997; 
-  --color-paso-activo: #20c997;
-  --color-paso-inactivo: #adb5bd;
-}
-
+/* -------------------------------------------------------------------------- */
+/* 1. LAYOUT Y CENTRADO */
+/* -------------------------------------------------------------------------- */
 
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  background-color: white;
-  padding: 20px 0;
   min-height: 100vh;
+  width: 100%;
+  padding: 30px 20px;
+  background-color: #f0f4f8; /* Fondo suave y moderno */
 }
 
+/* -------------------------------------------------------------------------- */
+/* 2. CABECERA Y TÍTULO */
+/* -------------------------------------------------------------------------- */
 
 .sectionTittle {
-  width: 90%;
-  max-width: 700px;
-  margin-bottom: 25px;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--color-borde-claro);
-  display: flex;
-  align-items: flex-start; 
-  gap: 15px;
+  text-align: center;
+  margin-bottom: 30px;
+  max-width: 600px;
 }
 
-
 .sectionTittle img {
-  width: 60px;
+  max-width: 80px;
   height: auto;
-  margin-top: 5px; 
+  margin-bottom: 10px;
 }
 
 .divTittle h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-texto-oscuro);
-  margin: 0;
+  color: #333;
+  font-size: 2.2em;
+  margin-bottom: 5px;
 }
 
 .divTittle p {
-  font-size: 0.95rem;
-  color: var(--color-texto-gris);
-  margin-top: 5px;
+  color: #6c757d;
+  font-size: 1.1em;
 }
 
-
-
 .divButton {
-  width: 90%;
-  max-width: 700px;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 15px;
+  /* Alinea el botón "Volver" a la izquierda del contenedor del formulario */
   display: flex;
-  justify-content: flex-start; 
-  margin-bottom: 20px;
+  justify-content: flex-start;
 }
 
 .buttonVolver {
-  background: none;
-  border: none;
-  color: var(--color-texto-gris);
-  font-size: 0.95rem;
+  background-color: transparent;
+  color: #6c757d;
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   cursor: pointer;
-  transition: color 0.2s;
-  padding: 0;
-  margin-left: 0;
-  position: relative;
-  padding-left: 15px;
+  font-size: 1em;
+  transition: all 0.3s ease;
 }
 
 .buttonVolver:hover {
-  color: var(--color-texto-oscuro);
+  background-color: #e9ecef;
+  color: #333;
 }
 
-.buttonVolver::before {
-  content: "←"; 
-  position: absolute;
-  left: 0;
-  font-weight: bold;
-}
-
-
+/* -------------------------------------------------------------------------- */
+/* 3. CONTENEDOR PRINCIPAL DEL FORMULARIO */
+/* -------------------------------------------------------------------------- */
 
 .sectionForm {
   width: 90%;
-  max-width: 700px;
-  padding: 15px;
-  
+  max-width: 500px;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  /* Sombra suave para darle profundidad */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
 }
 
 .sectionForm h2 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: var(--color-texto-oscuro);
-  margin: 0 0 20px 0;
-
-  position: relative;
-  padding-left: 30px;
+  text-align: center;
+  color: #0056b3; /* Azul más oscuro */
+  font-size: 1.6em;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef; /* Línea separadora sutil */
 }
 
-.sectionForm h2::before {
-  content: "1";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: var(--color-paso-activo); 
-  color: white;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-
-.divForm {
-  background-color: var(
-    --color-fondo-claro
-  );
-  border: 1px solid var(--color-borde-gris);
-  border-radius: 8px;
-  padding: 30px;
-}
+/* -------------------------------------------------------------------------- */
+/* 4. CAMPOS DEL FORMULARIO */
+/* -------------------------------------------------------------------------- */
 
 .divForm form {
   display: flex;
   flex-direction: column;
-  gap: 20px; 
+  gap: 20px; /* Aumenta el espacio entre grupos de elementos */
 }
 
-
-.divForm input[type="text"],
-.divForm input[type="email"] {
+.divForm input,
+.divForm select {
+  padding: 14px 15px;
+  border: 1px solid #ced4da; /* Borde más suave */
+  border-radius: 8px; /* Bordes más redondeados */
+  font-size: 1em;
+  color: #495057;
   width: 100%;
-  padding: 12px 15px;
   box-sizing: border-box;
-  border: 1px solid var(--color-borde-gris);
-  border-radius: 4px;
-  font-size: 1rem;
-  color: var(--color-texto-oscuro);
+  /* Transición para el enfoque (focus) */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.divForm input::placeholder {
-  color: #6c757d;
-  font-size: 0.95rem;
+/* Estilo al enfocar el campo */
+.divForm input:focus,
+.divForm select:focus {
+  border-color: #007bff;
+  /* Una sombra sutil azul para indicar el campo activo */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
 }
 
+/* -------------------------------------------------------------------------- */
+/* 5. MENSAJES DE ERROR */
+/* -------------------------------------------------------------------------- */
 
-.divForm button[type="button"] {
-  align-self: flex-start; 
-  background-color: #e9ecef; 
-  color: var(--color-texto-gris);
-  border: 1px solid var(--color-borde-gris);
-  padding: 8px 20px;
-  border-radius: 4px;
-  font-size: 1rem;
+.errorSpan {
+  color: #dc3545; /* Rojo de error */
+  font-size: 0.85em;
+  margin-top: -15px; /* Ajusta el espacio para acercarlo al campo */
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. BOTÓN DE ENVÍO */
+/* -------------------------------------------------------------------------- */
+
+.divForm button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  width: auto;
-  margin-top: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 25px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  letter-spacing: 0.5px;
 }
 
-.divForm button[type="button"]:hover {
-  background-color: var(--color-borde-gris);
+.divForm button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
-
-@media (max-width: 768px) {
-  .sectionTittle,
-  .divButton,
-  .sectionForm {
-    width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}*/
+.divForm button[type="submit"]:active {
+  transform: translateY(1px);
+}
