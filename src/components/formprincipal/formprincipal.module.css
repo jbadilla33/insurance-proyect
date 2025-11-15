@@ -1,0 +1,396 @@
+/* --- Variables de Estilo --- */
+:root {
+  --color-oceanica-green: #39c07e;
+  --color-texto-principal: #333;
+  --color-texto-gris: #6c757d;
+  --color-fondo-claro: #f8f9fa;
+  --color-borde-claro: #e9ecef;
+  --color-timeline-line: #e0e0e0;
+}
+
+/* --- Layout Principal --- */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px 0;
+  min-height: 100vh;
+}
+
+/* --- Header y Título --- */
+.headerStatic {
+  width: 90%;
+  max-width: 650px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-borde-claro);
+}
+
+/* --- Línea de Tiempo (Timeline) --- */
+.timelineContainer {
+  width: 90%;
+  max-width: 650px;
+  position: relative;
+  padding-left: 30px;
+}
+
+/* La línea vertical */
+.timelineConnector {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  width: 2px;
+  background-color: var(--color-timeline-line);
+  z-index: 0;
+}
+
+.timelineItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 45px; /* Espacio vertical entre pasos */
+  position: relative;
+}
+
+.stepIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  margin-left: -30px;
+  flex-shrink: 0;
+  z-index: 1;
+  background-color: var(--color-timeline-line); /* Inactivo por defecto */
+}
+
+/* Estados del Indicador */
+.stepIndicator.active {
+  background-color: var(--color-oceanica-green);
+}
+.stepIndicator.completed {
+  background-color: var(--color-oceanica-green);
+  font-size: 1rem;
+}
+
+/* Títulos de los pasos */
+.stepTitle {
+  color: var(--color-texto-gris);
+  font-weight: 400;
+  margin: 0;
+  margin-left: 10px;
+  font-size: 1rem;
+}
+.stepTitle.titleActive {
+  color: var(--color-texto-principal);
+  font-weight: 600;
+}
+.stepTitle.titleCompleted {
+  color: var(--color-texto-principal);
+  font-weight: 600;
+}
+
+/* --- Área de Contenido del Paso Activo --- */
+.contentArea {
+  margin-top: -30px; /* Sube el contenido bajo el paso activo */
+  margin-left: 30px; /* Alineación horizontal con el borde del contenedor */
+  width: 100%;
+}
+
+.formCardWrapper {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-borde-claro);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Inputs como en image_fbbced.png (solo borde inferior) */
+.inputField {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--color-timeline-line);
+  font-size: 1rem;
+  background: transparent;
+}
+.inputField:focus {
+  border-bottom-color: var(--color-oceanica-green);
+  outline: none;
+}
+
+/* --- Botones de Navegación --- */
+.navigationButtons {
+  width: 90%;
+  max-width: 650px;
+  display: flex;
+  justify-content: flex-end; /* Botones a la derecha */
+  align-items: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.prevButton {
+  background: none;
+  border: none;
+  color: var(--color-texto-gris);
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none; /* Como 'Ver paso anterior' */
+}
+
+.nextButton,
+.finalButton {
+  background-color: var(--color-oceanica-green);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Estilo para la Revisión (image_fbbd28.png) --- */
+.reviewContainer {
+  /* Mismo estilo de tarjeta */
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-borde-claro);
+  width: 100%;
+  box-sizing: border-box;
+}
+.reviewTitle {
+  color: var(--color-oceanica-green);
+  font-size: 1.4rem;
+}
+.reviewSubtitle {
+  color: var(--color-texto-gris);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.reviewStepItem {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-borde-claro);
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+.reviewStepIcon {
+  margin-right: 15px;
+  font-size: 1.2rem;
+  color: var(--color-oceanica-green);
+}
+.reviewStepLabel {
+  flex-grow: 1;
+  font-weight: 500;
+}
+.editButton {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+/*
+:root {
+  --color-principal: #007bff; 
+  --color-texto-oscuro: #333;
+  --color-texto-gris: #6c757d;
+  --color-fondo-claro: #f8f9fa;
+  --color-borde-gris: #dee2e6;
+  --color-borde-claro: #e9ecef;
+  --color-borde-activo: #20c997; 
+  --color-paso-activo: #20c997;
+  --color-paso-inactivo: #adb5bd;
+}
+
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: white;
+  padding: 20px 0;
+  min-height: 100vh;
+}
+
+
+.sectionTittle {
+  width: 90%;
+  max-width: 700px;
+  margin-bottom: 25px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-borde-claro);
+  display: flex;
+  align-items: flex-start; 
+  gap: 15px;
+}
+
+
+.sectionTittle img {
+  width: 60px;
+  height: auto;
+  margin-top: 5px; 
+}
+
+.divTittle h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-texto-oscuro);
+  margin: 0;
+}
+
+.divTittle p {
+  font-size: 0.95rem;
+  color: var(--color-texto-gris);
+  margin-top: 5px;
+}
+
+
+
+.divButton {
+  width: 90%;
+  max-width: 700px;
+  display: flex;
+  justify-content: flex-start; 
+  margin-bottom: 20px;
+}
+
+.buttonVolver {
+  background: none;
+  border: none;
+  color: var(--color-texto-gris);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;
+  margin-left: 0;
+  position: relative;
+  padding-left: 15px;
+}
+
+.buttonVolver:hover {
+  color: var(--color-texto-oscuro);
+}
+
+.buttonVolver::before {
+  content: "←"; 
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+
+
+.sectionForm {
+  width: 90%;
+  max-width: 700px;
+  padding: 15px;
+  
+}
+
+.sectionForm h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-texto-oscuro);
+  margin: 0 0 20px 0;
+
+  position: relative;
+  padding-left: 30px;
+}
+
+.sectionForm h2::before {
+  content: "1";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-paso-activo); 
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+
+.divForm {
+  background-color: var(
+    --color-fondo-claro
+  );
+  border: 1px solid var(--color-borde-gris);
+  border-radius: 8px;
+  padding: 30px;
+}
+
+.divForm form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+}
+
+
+.divForm input[type="text"],
+.divForm input[type="email"] {
+  width: 100%;
+  padding: 12px 15px;
+  box-sizing: border-box;
+  border: 1px solid var(--color-borde-gris);
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--color-texto-oscuro);
+}
+
+.divForm input::placeholder {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+
+.divForm button[type="button"] {
+  align-self: flex-start; 
+  background-color: #e9ecef; 
+  color: var(--color-texto-gris);
+  border: 1px solid var(--color-borde-gris);
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: auto;
+  margin-top: 10px;
+}
+
+.divForm button[type="button"]:hover {
+  background-color: var(--color-borde-gris);
+}
+
+
+@media (max-width: 768px) {
+  .sectionTittle,
+  .divButton,
+  .sectionForm {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}*/
