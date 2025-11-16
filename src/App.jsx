@@ -5,6 +5,7 @@ import Registro from "./components/registrar/registro";
 import { Layout } from "./components/layout/layout";
 import { Footer } from "./components/footer/footer";
 import FormPrincipal from "./components/formprincipal/formprincipal";
+import SeleccionaPlanes from "./components/seleccionaplanes/seleccionaplane";
 
 function App() {
   return (
@@ -12,9 +13,7 @@ function App() {
       <Layout />
       <Routes>
         <Route path="/" element={<FormPrincipal />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Registro" element={<Registro />} />
+        <Route path="/Planes" element={<SeleccionaPlanes />} />
       </Routes>
       <Footer />
     </BrowserRouter>
