@@ -1,7 +1,7 @@
 export default async function SearchBudget({ budgets }) {
   try {
     const resp = await fetch(
-      "https://asesores.segurospiramide.com/asg-api/dbo/budgets/get_budget_by_id",
+      "https://asesoresoc.oceanicadeseguros.com/asg-api/dbo/budgets/get_budget_by_id",
       {
         method: "POST",
         body: JSON.stringify({

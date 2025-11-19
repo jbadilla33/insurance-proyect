@@ -1,7 +1,7 @@
 export default async function SearchClient({ tipoid, numid }) {
   try {
     const resp = await fetch(
-      "https://asesores.segurospiramide.com/asg-api/dbo/budgets/get_customer",
+      "https://asesoresoc.oceanicadeseguros.com/asg-api/dbo/budgets/get_customer",
       {
         method: "POST",
         body: JSON.stringify({

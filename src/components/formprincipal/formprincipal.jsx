@@ -3,7 +3,7 @@ import Styles from "./formprincipal.module.css";
 import SearchClient from "../../hook/searchClient";
 import SeleccionaPlan from "../seleccionaplanes/seleccionaplane";
 import { useNavigate, Link } from "react-router-dom";
-import generate_budget from "../../hook/generatebudgets";
+import GenerateBudget from "../../hook/generatebudgets";
 
 export default function FormularioPrincipal() {
   const navigate = useNavigate();
@@ -177,7 +177,7 @@ export default function FormularioPrincipal() {
     setDatosError(errores);
 
     if (esValido) {
-      const budgets = await generate_budget({ datos });
+      const budgets = await GenerateBudget({ datos });
       if (budgets && budgets.p_sts === "OK") {
         // 1. Combina los datos del formulario con la respuesta de la API
         const datosFinales = {

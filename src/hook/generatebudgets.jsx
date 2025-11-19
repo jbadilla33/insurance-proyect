@@ -1,7 +1,15 @@
 // hook/generate_budget.js (Corregido para p_json_info)
 
-export default async function generate_budget({ datos }) {
+export default async function GenerateBudget({ datos }) {
   // 1. Crear el objeto de DATOS INTERNO (la cadena JSON que va dentro de p_json_info)
+
+  const fechaActual = new Date();
+  const añoActual = fechaActual.getFullYear();
+  const fechaNacimiento = new Date(datos.fechaNacimiento);
+  const edad = añoActual - fechaNacimiento.getFullYear();
+
+  console.log(edad);
+
   const innerData = {
     p_tipoid: datos.tipoid,
     dateOfBirth: datos.fechaNacimiento, // Formato DD/MM/YYYY
@@ -10,16 +18,16 @@ export default async function generate_budget({ datos }) {
     p_identification_lastname: datos.apellido,
 
     // Asumimos que la edad viene en 'datos.edad'
-    p_ages_titu: datos.edad,
-    p_all_ages: datos.edad,
+    p_ages_titu: edad.toString(),
+    p_all_ages: edad.toString(),
 
     // Campos estáticos/vacíos
     p_applicant_name: "",
     p_applicant_phone_number: "",
     p_applicant_email: "",
-    p_partner_code: "14",
-    p_codprod: "PHOG",
-    p_alianza: "V141289450",
+    p_partner_code: "4452",
+    p_codprod: "FUNE",
+    p_alianza: "J306206329",
     p_tipo_canal: "A",
   };
 
@@ -35,7 +43,7 @@ export default async function generate_budget({ datos }) {
 
   try {
     const resp = await fetch(
-      "https://asesores.segurospiramide.com/asg-api/dbo/budgets/generate_budget",
+      "https://asesoresoc.oceanicadeseguros.com/asg-api/dbo/budgets/generate_budget",
       {
         method: "POST",
         // 4. Serializar el payload EXTERNO para la solicitud HTTP
