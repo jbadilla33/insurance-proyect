@@ -16,8 +16,9 @@ export default async function SearchBudget({ budgets }) {
 
     const data = datos.p_cur_budget;
     const dataBudgetPlan = datos.p_budget_plans;
+    const dataBudgetInfo = datos.p_budget_info;
 
-    return { data, dataBudgetPlan };
+    return { data, dataBudgetPlan, dataBudgetInfo };
   } catch (error) {
     console.log("Error ejecutando el api");
   }

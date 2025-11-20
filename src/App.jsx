@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/layout/layout";
 import { Footer } from "./components/footer/footer";
 import FormPrincipal from "./components/formprincipal/formprincipal";
@@ -7,7 +7,7 @@ import DatosTitular from "./components/titular/datostitular";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Layout />
       <Routes>
         <Route path="/" element={<FormPrincipal />} />
@@ -15,7 +15,7 @@ function App() {
         <Route path="/Titular" element={<DatosTitular />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 
