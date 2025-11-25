@@ -1,0 +1,187 @@
+/* -------------------------------------------------------------------------- */
+/* 1. LAYOUT PRINCIPAL */
+/* -------------------------------------------------------------------------- */
+
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.headerTitle {
+  color: #004085;
+  font-size: 1.8em;
+  font-weight: 700;
+  border-bottom: 3px solid #007bff;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.introText {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 25px;
+  font-size: 0.95em;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. INFOMACIÓN DE LA COTIZACIÓN - REVISADO */
+/* -------------------------------------------------------------------------- */
+
+.quoteInfoContainer {
+  display: flex;
+  justify-content: flex-start; /* Alineación a la izquierda */
+  gap: 40px;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+  background-color: #f5f8fd; /* Fondo azul muy claro */
+  border-radius: 8px;
+  border-left: 5px solid #007bff; /* Borde vertical para destacar */
+}
+
+.quoteInfoItem {
+  font-size: 1em;
+  color: #555;
+  white-space: nowrap;
+}
+
+.quoteInfoItem span {
+  font-weight: bold;
+  color: #333;
+  margin-right: 5px;
+}
+/* -------------------------------------------------------------------------- */
+/* 3. BLOQUES DE SECCIÓN (Datos, Ingresos, Salud) - REVISADO */
+/* -------------------------------------------------------------------------- */
+
+.sectionBlock {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #f0f4f8;
+  border-radius: 8px;
+  background-color: #ffffff; /* Quitamos el fondo sutil para un bloque más limpio */
+}
+
+.sectionBlock h2 {
+  color: #004085; /* Azul fuerte para todos los títulos H2 */
+  font-size: 1.6em; /* Mayor tamaño para más prominencia */
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #007bff; /* Línea separadora azul */
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. FORMULARIOS (Select y Radio) */
+/* -------------------------------------------------------------------------- */
+
+.selectInput {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1em;
+  color: #495057;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.healthQuestion {
+  font-style: italic;
+  color: #333;
+  margin-bottom: 15px !important;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.radioGroup input[type="radio"] {
+  transform: scale(1.2);
+}
+
+.radioGroup label {
+  font-size: 1em;
+  cursor: pointer;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. MENSAJES Y ASESOR */
+/* -------------------------------------------------------------------------- */
+
+.errorSpan {
+  color: #dc3545;
+  font-size: 0.85em;
+  margin-top: 5px;
+  display: block;
+  font-weight: 500;
+}
+
+.alertMessage {
+  color: #ff8c00; /* Naranja para alerta */
+  font-weight: 600;
+  margin-top: 10px !important;
+  border-left: 3px solid #ff8c00;
+  padding-left: 10px;
+}
+
+.loadingText {
+  text-align: center;
+  font-size: 1.2em;
+  color: #007bff;
+  margin: 50px 0;
+}
+
+.advisorBlock {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: #e9f0f7;
+  border-radius: 8px;
+}
+
+.advisorBlock h2 {
+  color: #333;
+  font-size: 1.2em;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. BOTÓN DE NAVEGACIÓN */
+/* -------------------------------------------------------------------------- */
+
+.buttonContainer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.nextButton {
+  padding: 15px 40px;
+  font-size: 1.1em;
+  background-color: #28a745; /* Verde para avance */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.1s ease, opacity 0.3s ease;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.nextButton:hover:not(:disabled) {
+  background-color: #1e7e34;
+  transform: translateY(-1px);
+}
+
+.nextButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.8;
+  box-shadow: none;
+}

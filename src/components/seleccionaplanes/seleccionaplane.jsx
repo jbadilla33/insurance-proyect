@@ -1,112 +1,146 @@
-import { useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react"; // Importamos useMemo
 import SearchBudget from "../../hook/searchbudgets";
-import { useState, useEffect } from "react";
-import Style from "./planes.module.css";
 import PlanSeleccionado from "../../hook/planseleccionado";
-import { useNavigate } from "react-router-dom";
+import Style from "./planes.module.css"; // Se asume que este CSS existe y se ajustará
 
 export default function SeleccionaPlan() {
   const navigate = useNavigate();
-  const location = useLocation();
+  // 💡 Optimización: Desestructuración directa y clara del budgetId
+  const { budgetId } = useParams();
 
+  // --- Estados ---
   const [datosBudget, setDatosBudget] = useState(null);
   const [datosBudgetPlan, setDatosBudgetPlan] = useState([]);
   const [cargando, setCargando] = useState(true);
-  // Nuevo estado para manejar la selección del plan
+  const [errorCarga, setErrorCarga] = useState(null); // Nuevo estado para errores
   const [planSeleccionado, setPlanSeleccionado] = useState(null);
 
-  const datosRecibidos = location.state?.data;
+  // 💡 Nota: Los datos de location.state no se usan para la lógica principal,
+  // pero los mantenemos para referencia o futura implementación si es necesario.
+  const location = useLocation();
+  const datosRecibidos = location.state;
 
-  console.log("datos recibios", datosRecibidos);
-
-  // --- Lógica Inicial de Verificación ---
-  if (!datosRecibidos) {
-    return (
-      <div className={Style.container}>
-        <h1 style={{ color: "red" }}>Error de Datos</h1>
-        <p>
-          Error: No se encontraron datos del cliente. Por favor, vuelva al
-          formulario.
-        </p>
-      </div>
-    );
-  }
-  const infoBudget = datosRecibidos.budgetInfo;
-  const budgetId = infoBudget.p_budget_id;
-
-  // --- Función para manejar la selección del plan ---
-  const handlePlanSelection = (planId) => {
-    setPlanSeleccionado(planId);
-    // Aquí podrías añadir lógica adicional, como guardar la selección
-    // en un estado global o habilitar un botón de "Continuar"
-    console.log(`Plan seleccionado: ${planId}`);
-  };
-
-  // --- Lógica de Carga de Datos ---
+  // --- Lógica de Carga de Datos (useEffect) ---
   useEffect(() => {
+    if (!budgetId) {
+      setErrorCarga("No se encontró el ID de la cotización en la URL.");
+      setCargando(false);
+      return;
+    }
+
     async function fetchBudgetData() {
       setCargando(true);
-      const { data, dataBudgetPlan } = await SearchBudget({
-        budgets: budgetId,
-      });
-      setDatosBudget(data && data.length > 0 ? data[0] : null);
+      setErrorCarga(null);
 
-      // Aseguramos que dataBudgetPlan.plans sea el array de planes
-      setDatosBudgetPlan(dataBudgetPlan?.plans || dataBudgetPlan || []);
+      try {
+        // 💡 Optimización: Desestructuramos el resultado de SearchBudget
+        const result = await SearchBudget({ budgets: budgetId });
 
-      setCargando(false);
+        const dataInfo =
+          result.data && result.data.length > 0 ? result.data[0] : null;
+        const dataPlanes =
+          result.dataBudgetPlan?.plans || result.dataBudgetPlan || [];
+
+        if (!dataInfo) {
+          setErrorCarga(
+            `No se encontraron datos para la cotización ID: ${budgetId}`
+          );
+        } else {
+          setDatosBudget(dataInfo);
+          setDatosBudgetPlan(dataPlanes);
+        }
+      } catch (error) {
+        console.error("Error al cargar el presupuesto:", error);
+        setErrorCarga("Error de conexión al cargar los planes.");
+      } finally {
+        setCargando(false);
+      }
     }
     fetchBudgetData();
   }, [budgetId]);
 
-  // --- Renderizado Condicional ---
-  if (cargando) {
-    return (
-      <div className={Style.container}>
-        <div>Cargando planes y datos de cotización...</div>
-      </div>
-    );
-  }
+  // --- Funciones de Manejo de Eventos ---
 
-  if (!datosBudget) {
-    return (
-      <div className={Style.container}>
-        <div>Error al cargar los datos de la cotización.</div>
-      </div>
-    );
-  }
+  const handlePlanSelection = (planId) => {
+    setPlanSeleccionado(planId);
+    console.log(`Plan seleccionado: ${planId}`);
+  };
 
   async function handleNextHolder() {
-    console.log("Avanzando con el plan seleccionado:", planSeleccionado);
+    if (!planSeleccionado) {
+      alert("Por favor, seleccione un plan antes de continuar.");
+      return;
+    }
+
+    // 🚨 Mostramos el estado de carga antes de la llamada a la API
+    setCargando(true);
+
     const datos = {
       budgetId: budgetId,
       plan_id_buy: planSeleccionado,
     };
 
-    const respPlanSeleccionado = await PlanSeleccionado({ datos });
+    try {
+      const respPlanSeleccionado = await PlanSeleccionado({ datos });
 
-    console.log("respPlanSeleccionado", respPlanSeleccionado);
+      if (respPlanSeleccionado && respPlanSeleccionado.result === "OK") {
+        const datosFinales = { budgetId: budgetId };
 
-    if (respPlanSeleccionado && respPlanSeleccionado.result === "OK") {
-      const datosFinales = {
-        budgetId: budgetId,
-      };
-
-      console.log("Datos finales para el siguiente paso:", datosFinales);
-
-      navigate("/Titular", {
-        state: {
-          data: datosFinales,
-        },
-      });
-    } else {
-      // Manejar error de API si no devuelve OK
-      alert("Error al generar el presupuesto. No se puede avanzar.");
-      console.error("Fallo al generar budget:", budgets);
+        // Navegación a la ruta dinámica /Titular/:budgetId
+        navigate(`/Titular/${budgetId}`, {
+          state: { data: datosFinales },
+        });
+      } else {
+        alert("Error al seleccionar el plan. No se puede avanzar.");
+        console.error("Fallo al seleccionar plan:", respPlanSeleccionado);
+      }
+    } catch (error) {
+      alert("Ocurrió un error en el proceso de selección del plan.");
+      console.error("Error en handleNextHolder:", error);
+    } finally {
+      // 🚨 Detenemos el estado de carga
+      setCargando(false);
     }
   }
 
-  // --- Renderizado Principal ---
+  // --- Lógica de Renderizado Anticipado (Early Returns) ---
+
+  // 1. Error de URL (budgetId no existe)
+  if (!budgetId) {
+    return (
+      <div className={Style.container}>
+        <h1 className={Style.errorTitle}>Error de Datos</h1>
+        <p>
+          Error: No se encontró el ID de la cotización en la URL. Por favor,
+          vuelva al formulario principal.
+        </p>
+      </div>
+    );
+  }
+
+  // 2. Estado de Carga
+  if (cargando) {
+    return (
+      <div className={Style.container}>
+        <div className={Style.loadingText}>
+          Cargando planes y datos de cotización...
+        </div>
+      </div>
+    );
+  }
+
+  // 3. Error de Carga de API
+  if (errorCarga) {
+    return (
+      <div className={Style.container}>
+        <h1 className={Style.errorTitle}>Error de Cotización</h1>
+        <p>{errorCarga}</p>
+      </div>
+    );
+  }
+
+  // --- RENDERIZADO PRINCIPAL (Cuando todo está cargado) ---
   return (
     <div className={Style.container}>
       <div>
@@ -118,25 +152,27 @@ export default function SeleccionaPlan() {
         </p>
       </div>
 
-      <hr />
+      <hr className={Style.separator} />
+
+      {/* --- DATOS DE LA COTIZACIÓN --- */}
       <div>
         <h2>Datos de la Cotización</h2>
-        <div className={Style.quoteDetails} key={datosBudget.BUDGET_ID}>
+        <div className={Style.quoteInfoContainer}>
           <p>
             <strong>Número de Cotización:</strong> {budgetId}
           </p>
           <p>
-            <strong>Fecha:</strong> {datosBudget.DATE_CREATION}
+            <strong>Fecha:</strong> {datosBudget.DATE_CREATION || "N/A"}
           </p>
           <p>
-            <strong>Válida hasta:</strong> {datosBudget.EXPIRED_ON}
+            <strong>Válida hasta:</strong> {datosBudget.EXPIRED_ON || "N/A"}
           </p>
         </div>
       </div>
 
-      <hr />
+      <hr className={Style.separator} />
 
-      {/* Sección de Planes Ofrecidos (Tarjetas) */}
+      {/* --- GRID DE PLANES --- */}
       <div>
         <h2>Planes que te ofrecemos</h2>
         {datosBudgetPlan.length > 0 ? (
@@ -150,28 +186,37 @@ export default function SeleccionaPlan() {
                 onClick={() => handlePlanSelection(plan.plan_id)}
               >
                 <h3>{plan.descplanprod}</h3>
+
+                {/* 💡 MEJOR FORMATO DE MONEDA/PRIMA */}
+                {/* Usamos el operador ?. (optional chaining) para evitar errores si 'fraccionamiento' es null */}
                 <p>
                   Suma Asegurada:{" "}
                   <strong>
-                    {plan.sumaaseg} {plan.fraccionamiento[0]?.codmoneda}
+                    {plan.sumaaseg}{" "}
+                    {plan.fraccionamiento?.[0]?.codmoneda || "DL"}
                   </strong>
                 </p>
                 <p>
                   Prima Anual:{" "}
                   <strong>
-                    {plan.prima} {plan.fraccionamiento[0]?.codmoneda}
+                    {plan.prima} {plan.fraccionamiento?.[0]?.codmoneda || "DL"}
                   </strong>
                 </p>
 
-                {/* Detalles de Coberturas */}
                 <div className={Style.detailGroup}>
                   <p>Coberturas:</p>
                   {plan.coberturas.map((cobertura, index) => (
-                    <span key={index}>
-                      <strong>
-                        <p>{cobertura.desccobert}</p>
-                      </strong>{" "}
-                      (Prima: {cobertura.prima === 0 ? "0" : cobertura.prima})
+                    // 💡 Optimización: Usar la clave 'plan_id' del plan y el 'index' para una key más segura
+                    <span key={`${plan.plan_id}-${index}`}>
+                      <p>
+                        <strong>{cobertura.desccobert}</strong>
+                        {/* Mostramos la prima de cobertura de forma clara */}
+                        <span>
+                          {" "}
+                          (Prima:{" "}
+                          {cobertura.prima === 0 ? "0" : cobertura.prima})
+                        </span>
+                      </p>
                     </span>
                   ))}
                 </div>
@@ -182,25 +227,17 @@ export default function SeleccionaPlan() {
           <p>No se encontraron planes disponibles para esta cotización.</p>
         )}
       </div>
-      {planSeleccionado && (
-        <div style={{ textAlign: "center", marginTop: "40px" }}>
-          <button
-            style={{
-              padding: "15px 30px",
-              fontSize: "1.2em",
-              backgroundColor: "#ff7f50",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              boxShadow: "0 4px 10px rgba(255, 127, 80, 0.3)",
-            }}
-            onClick={handleNextHolder}
-          >
-            Siguiente
-          </button>
-        </div>
-      )}
+
+      {/* --- BOTÓN DE AVANCE --- */}
+      <div className={Style.buttonContainer}>
+        <button
+          className={Style.nextButton} // 💡 Clase CSS para estilos más limpios
+          onClick={handleNextHolder}
+          disabled={cargando || !planSeleccionado} // Deshabilitamos si carga o no hay plan
+        >
+          {cargando ? "Procesando..." : "Siguiente"}
+        </button>
+      </div>
     </div>
   );
 }

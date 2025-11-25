@@ -1,131 +1,229 @@
-/* ==================================== */
-/* 1. Estilos Generales del Contenedor */
-/* ==================================== */
+/* -------------------------------------------------------------------------- */
+/* 1. LAYOUT PRINCIPAL Y TEXTOS */
+/* -------------------------------------------------------------------------- */
+
 .container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 30px;
-  background-color: #f7f9fc;
+  max-width: 1000px;
+  margin: 40px auto; /* Centra el contenedor en la página */
+  padding: 20px;
+  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  font-family: Arial, sans-serif;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); /* Sombra suave para destacar */
 }
 
 .container h1 {
-  color: #004d99; /* Azul institucional */
+  color: #004085; /* Azul oscuro corporativo */
   font-size: 2.5em;
-  border-bottom: 3px solid #ff7f50; /* Color de acento */
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-.container h2 {
-  color: #333;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .container p {
-  line-height: 1.6;
   color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
-.container hr {
+.separator {
   border: none;
-  border-top: 1px solid #ddd;
-  margin: 30px 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 25px 0;
 }
 
-/* ==================================== */
-/* 2. Estilos de Datos de la Cotización */
-/* ==================================== */
-.quoteDetails {
+/* -------------------------------------------------------------------------- */
+/* 2. DATOS DE LA COTIZACIÓN */
+/* -------------------------------------------------------------------------- */
+.quoteInfoContainer {
   display: flex;
+  justify-content: flex-start; /* Alineación a la izquierda */
   gap: 40px;
-  padding: 15px;
-  background-color: #fff;
+  padding: 15px 20px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  background-color: #f5f8fd; /* Fondo azul muy claro */
   border-radius: 8px;
-  border-left: 5px solid #004d99;
+  border-left: 5px solid #007bff; /* Borde vertical para destacar */
 }
 
-.quoteDetails p {
-  margin: 5px 0;
+/* Elementos individuales */
+.quoteInfoItem {
   font-size: 1em;
+  color: #555;
+  white-space: nowrap; /* Evita que se rompa en varias líneas */
+}
+
+.quoteInfoItem strong {
+  font-weight: 700;
   color: #333;
 }
 
-.quoteDetails p strong {
-  font-weight: bold;
-}
+/* -------------------------------------------------------------------------- */
+/* 3. GRID Y TARJETAS DE PLANES */
+/* -------------------------------------------------------------------------- */
 
-/* ==================================== */
-/* 3. Contenedor de Planes (Grid) */
-/* ==================================== */
 .plansGrid {
   display: grid;
-  /* Muestra 3 columnas en pantallas grandes, ajusta a 1 en móvil */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   margin-top: 20px;
 }
 
-/* ==================================== */
-/* 4. Estilos de las Tarjetas de Plan */
-/* ==================================== */
 .planCard {
-  background-color: #fff;
+  background-color: #f9f9f9;
   padding: 25px;
   border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
   cursor: pointer;
-  border: 2px solid transparent; /* Borde transparente por defecto */
+  display: flex;
+  flex-direction: column;
 }
 
-/* Estilo al pasar el ratón (Hover) */
 .planCard:hover {
-  transform: translateY(-5px); /* Pequeño levantamiento */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: #007bff;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.1);
+  transform: translateY(-2px);
 }
 
-/* Estilo para el plan seleccionado */
-.planCard.selected {
-  border-color: #ff7f50; /* Borde resaltado para selección */
-  box-shadow: 0 0 0 4px rgba(255, 127, 80, 0.5); /* Anillo de color */
-  background-color: #ffe8df; /* Fondo ligeramente coloreado */
+/* Estado de PLAN SELECCIONADO */
+.selected {
+  border-color: #ff7f50; /* Naranja/Coral vibrante */
+  box-shadow: 0 0 15px rgba(255, 127, 80, 0.6);
+  background-color: #fff8f5; /* Fondo muy claro para indicar selección */
 }
 
 .planCard h3 {
-  color: #ff7f50; /* Título del plan en color de acento */
-  font-size: 1.5em;
+  color: #333;
+  font-size: 1.4em;
+  font-weight: 600;
   margin-top: 0;
   margin-bottom: 15px;
-}
-
-.planCard p {
-  font-size: 0.95em;
-  margin: 8px 0;
+  text-transform: uppercase;
 }
 
 .planCard strong {
-  color: #004d99;
+  color: #007bff;
   font-weight: 700;
 }
 
-.planCard .detailGroup {
-  margin-top: 15px;
-  padding: 10px;
-  border-top: 1px dashed #eee;
+/* -------------------------------------------------------------------------- */
+/* 4. DETALLES DE COBERTURA */
+/* -------------------------------------------------------------------------- */
+
+.detailGroup {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #ccc;
 }
 
-.planCard .detailGroup span {
-  display: block;
-  font-size: 0.85em;
-  color: #777;
-  margin-top: 5px;
-}
-
-.planCard .detailGroup span strong {
+.detailGroup p {
+  font-weight: 600;
   color: #333;
+  margin-bottom: 8px;
+}
+
+.detailGroup span {
+  display: block; /* Cada cobertura en su propia línea */
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 5px;
+  padding-left: 10px;
+  border-left: 2px solid #eee;
+}
+
+.detailGroup span strong {
+  color: #555; /* Normalizamos el color para las coberturas */
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. BOTÓN SIGUIENTE Y ESTADOS DE CARGA */
+/* -------------------------------------------------------------------------- */
+
+.buttonContainer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px 0;
+}
+
+.nextButton {
+  padding: 15px 40px;
+  font-size: 1.2em;
+  background-color: #ff7f50; /* Naranja/Coral fuerte */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.1s ease, opacity 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 127, 80, 0.3);
+}
+
+.nextButton:hover:not(:disabled) {
+  background-color: #e6693d;
+  transform: translateY(-1px);
+}
+
+.nextButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.8;
+  box-shadow: none;
+}
+
+/* Mensajes de estado */
+.loadingText,
+.errorTitle {
+  text-align: center;
+  font-size: 1.5em;
+  margin: 50px 0;
+}
+
+.errorTitle {
+  color: #dc3545; /* Rojo de error */
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. MEDIA QUERIES (Responsive) */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .plansGrid {
+    /* Permite que el grid pase a una sola columna si el minmax no es suficiente */
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .quoteDetails {
+    /* Pone los detalles en columna en móviles */
+    flex-direction: column;
+    gap: 5px;
+    padding-left: 10px;
+  }
+
+  .container h1 {
+    font-size: 2em;
+  }
+
+  .nextButton {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* 7. ESTILOS DE TÍTULOS DE SECCIÓN */
+/* -------------------------------------------------------------------------- */
+.container h2 {
+  color: #004085; /* Color azul fuerte para todos los títulos H2 */
+  font-size: 1.6em;
+  font-weight: 600;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #007bff; /* Línea separadora azul */
 }

@@ -1,19 +1,20 @@
-export default async function SearchClient({ username, password }) {
+export default async function GetListValues(list_code) {
   try {
     const resp = await fetch(
-      "https://asesores.segurospiramide.com/asg-api/login",
+      "https://asesores.segurospiramide.com/asg-api/dbo/toolkit/get_values_list",
       {
         method: "POST",
         body: JSON.stringify({
-          p_portal_username: username,
-          p_pwd: password,
+          p_list_code: list_code,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
-    var data = await resp.json();
+    const datos = await resp.json();
+
+    const data = datos.p_cursor;
 
     return data;
   } catch (error) {

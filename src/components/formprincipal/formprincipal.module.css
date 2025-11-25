@@ -1,33 +1,29 @@
 /* -------------------------------------------------------------------------- */
-/* 1. LAYOUT Y CENTRADO */
+/* 1. LAYOUT PRINCIPAL Y FONDO */
 /* -------------------------------------------------------------------------- */
 
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  /* Todo el contenido se centra en el main, pero sus hijos (sectionTittle, divButton, sectionForm)
-     tienen un ancho máximo (max-width: 500px), lo que permite que se vean alineados entre sí. */
+  align-items: center; /* Centra los bloques del formulario horizontalmente */
   min-height: 100vh;
   width: 100%;
   padding: 30px 20px;
-  background-color: #f0f4f8;
+  background-color: #f0f4f8; /* Fondo suave para destacar el formulario */
 }
 
 /* -------------------------------------------------------------------------- */
-/* 2. CABECERA Y TÍTULO (MODIFICADO para alinear a la izquierda) */
+/* 2. CABECERA (Imagen y Título) */
 /* -------------------------------------------------------------------------- */
 
 .sectionTittle {
   display: flex;
   align-items: center;
-  /* CAMBIO CLAVE: Eliminar justify-content: center. 
-     Alineamos a la izquierda para que el texto inicie junto a la imagen. */
-  justify-content: flex-start;
+  justify-content: flex-start; /* Alinea el contenido a la izquierda del contenedor */
   text-align: left;
   margin-bottom: 5px;
 
-  /* Asegura que sectionTittle ocupe el mismo ancho que el formulario. */
+  /* Establece el ancho máximo para centrar el contenido junto al formulario */
   width: 90%;
   max-width: 500px;
 }
@@ -35,24 +31,24 @@
 .sectionTittle img {
   max-width: 80px;
   height: auto;
-  margin-right: 10px; /* Reducimos el margen para acercar el texto */
+  margin-right: 15px; /* Pequeño ajuste en el margen para espacio */
 }
 
-.divTittle {
-  display: flex;
-  flex-direction: column;
+.divTittle h2 {
+  /* Usamos h2 como en el componente React */
+  font-size: 1.2em;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
 }
 
-.divTittle h1 {
-  /* ... (Estilos mantenidos) ... */
-}
-
-.divTittle p {
-  /* ... (Estilos mantenidos) ... */
-}
+/* -------------------------------------------------------------------------- */
+/* 3. BOTÓN "VOLVER" */
+/* -------------------------------------------------------------------------- */
 
 .divButton {
-  /* Mantiene la alineación a la izquierda */
+  /* Alinea el botón a la izquierda del contenedor */
   width: 90%;
   max-width: 500px;
   margin-bottom: 20px;
@@ -61,35 +57,30 @@
 }
 
 .buttonVolver {
-  /* Lo transformamos en un enlace de texto discreto */
+  /* Estilo de enlace discreto (usando la etiqueta <Link> de react-router-dom) */
   background-color: transparent;
-  color: #0056b3; /* Usamos el azul principal para darle énfasis */
-  padding: 5px 10px; /* Reducimos el padding */
-  border: none; /* Eliminamos el borde */
+  color: #0056b3;
+  padding: 5px 10px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1em;
-  font-weight: 600; /* Lo hacemos seminegrilla */
-  transition: color 0.3s ease, background-color 0.3s ease;
-
-  /* Esto simula una flecha hacia la izquierda si no usas un icono SVG */
-  /* Si deseas usar un icono real, omite la propiedad content */
+  font-weight: 600;
+  text-decoration: none; /* Aseguramos que se vea como botón, no como link */
+  transition: background-color 0.3s ease;
 }
 
 .buttonVolver:before {
-  content: "← "; /* Añade una flecha a la izquierda */
-  font-size: 1.2em;
-  line-height: 1;
-  vertical-align: middle;
+  content: "← "; /* Añade la flecha */
 }
 
 .buttonVolver:hover {
-  /* Efecto sutil al pasar el mouse */
-  background-color: #e9ecef; /* Un fondo muy suave */
+  background-color: #e9ecef;
   color: #004085;
 }
+
 /* -------------------------------------------------------------------------- */
-/* 3. CONTENEDOR PRINCIPAL DEL FORMULARIO (Mantenido) */
+/* 4. CONTENEDOR DEL FORMULARIO */
 /* -------------------------------------------------------------------------- */
 
 .sectionForm {
@@ -98,24 +89,30 @@
   padding: 30px;
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra elegante */
   margin-bottom: 20px;
 }
 
-/* ... (El resto del CSS se mantiene igual) ... */
-/* -------------------------------------------------------------------------- */
-/* 4. CAMPOS DEL FORMULARIO (Mantenido) */
-/* -------------------------------------------------------------------------- */
+.sectionForm h2 {
+  color: #495057;
+  margin-bottom: 20px;
+  font-size: 1.3em;
+  font-weight: 600;
+}
 
 .divForm form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px; /* Aumentamos ligeramente el espacio entre campos */
 }
+
+/* -------------------------------------------------------------------------- */
+/* 5. CAMPOS (Inputs y Select) */
+/* -------------------------------------------------------------------------- */
 
 .divForm input,
 .divForm select {
-  padding: 10px 15px;
+  padding: 12px 15px; /* Un poco más de padding vertical */
   border: 1px solid #ced4da;
   border-radius: 8px;
   font-size: 1em;
@@ -133,33 +130,54 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/* 5. MENSAJES DE ERROR (Mantenido) */
+/* 6. MENSAJES DE ERROR Y CARGA (Mejorado) */
 /* -------------------------------------------------------------------------- */
 
 .errorSpan {
-  color: #dc3545;
-  font-size: 0.8em;
-  margin-top: -8px;
-  margin-bottom: 0px;
-  font-weight: 500;
+  color: #dc3545; /* Rojo fuerte para errores */
+  font-size: 0.85em; /* Ligeramente más legible */
+  margin-top: -10px; /* Acercamos al campo */
+  margin-bottom: 0;
+  font-weight: 600; /* Lo hacemos más visible */
+}
+
+.loadingSpan {
+  /* 💡 HACEMOS QUE EL MENSAJE DE BÚSQUEDA SEA MUY CLARO */
+  color: #ff8c00; /* Naranja/Ámbar para estado "esperando" */
+  font-size: 0.9em;
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-weight: 600;
+  animation: pulse 1.5s infinite; /* Añadimos una animación sutil */
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }
 
 /* -------------------------------------------------------------------------- */
-/* 6. BOTÓN DE ENVÍO (Mantenido) */
+/* 7. BOTÓN DE ENVÍO (Submit) */
 /* -------------------------------------------------------------------------- */
 
 .divForm button[type="submit"] {
   background-color: #007bff;
   color: white;
-  padding: 12px 20px;
+  padding: 15px 20px; /* Aumentamos el padding para hacerlo más tocable */
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1em;
   font-weight: bold;
-  margin-top: 15px;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-  letter-spacing: 0.5px;
+  margin-top: 20px; /* Más espacio arriba */
+  transition: background-color 0.3s ease, transform 0.1s ease, opacity 0.3s ease;
 }
 
 .divForm button[type="submit"]:hover {
@@ -170,85 +188,56 @@
   transform: translateY(1px);
 }
 
-/* ... (Todo el CSS anterior se mantiene igual) ... */
+.divForm button[type="submit"]:disabled {
+  background-color: #a0c9e6; /* Gris azulado suave cuando está deshabilitado */
+  cursor: not-allowed;
+  opacity: 0.8;
+}
 
-/* ========================================================================== */
-/* 7. MEDIA QUERIES (RESPONSIVE DESIGN) */
-/* ========================================================================== */
+/* -------------------------------------------------------------------------- */
+/* 8. MEDIA QUERIES (RESPONSIVE) - Simplificado */
+/* -------------------------------------------------------------------------- */
 
-/* Estilos para Pantallas Medianas (ej: Tablets, hasta 768px) */
-@media (max-width: 768px) {
+/* Aplicamos cambios para todos los móviles (máximo 600px) */
+@media (max-width: 600px) {
+  /* Ajustes de centrado para móviles */
   .sectionTittle {
-    /* Permite que la imagen y el texto ocupen más espacio en pantallas más pequeñas */
     flex-direction: column;
     text-align: center;
-    margin-bottom: 10px;
-    max-width: 90%; /* Aumentamos ligeramente el ancho máximo */
+    align-items: center;
   }
 
   .sectionTittle img {
     margin-right: 0;
-    margin-bottom: 10px; /* Espacio debajo de la imagen */
-  }
-
-  .divButton,
-  .sectionForm {
-    max-width: 90%; /* Aseguramos que el formulario y el botón Volver usen más espacio */
-    width: 90%;
+    margin-bottom: 10px;
+    max-width: 60px; /* Imagen más pequeña en móvil */
   }
 
   .divButton {
-    /* Centramos el botón Volver para tablets/móviles */
+    /* Centramos el botón "Volver" en móviles */
     justify-content: center;
+    width: 100%;
+    max-width: 100%;
   }
 
+  /* Ajustes de tamaño y padding */
   .sectionForm {
-    padding: 25px; /* Reducimos el padding interno del formulario */
+    padding: 20px 15px;
+    width: 100%;
+    max-width: 100%;
   }
 
-  .divTittle h1 {
-    font-size: 1.8em; /* Hacemos el título un poco más pequeño */
-  }
-
-  .divTittle p {
-    font-size: 1em; /* Ajustamos la descripción */
+  .divTittle h2 {
+    font-size: 1.1em;
   }
 
   .divForm button[type="submit"] {
-    padding: 15px; /* Mantenemos el botón grande para facilitar el toque */
-  }
-}
-
-/* Estilos para Pantallas Pequeñas (ej: Teléfonos Móviles, hasta 480px) */
-@media (max-width: 480px) {
-  .main {
-    padding: 15px 10px; /* Reducimos el padding global */
-  }
-
-  .sectionTittle img {
-    max-width: 60px; /* Hacemos la imagen más pequeña */
-  }
-
-  .divTittle h1 {
-    font-size: 1.5em; /* Título aún más pequeño */
-  }
-
-  .divTittle p {
-    font-size: 0.9em;
-  }
-
-  .sectionForm {
-    padding: 20px 15px; /* Reducción máxima del padding interno */
-    border-radius: 8px;
-  }
-
-  .divForm form {
-    gap: 8px; /* Reducción mínima del espacio entre campos */
+    padding: 14px;
+    font-size: 0.95em;
   }
 
   .divForm input,
   .divForm select {
-    padding: 12px 10px; /* Reducción del padding de los inputs */
-    font-size: 0.95em;
+    padding: 10px 12px;
   }
 }
